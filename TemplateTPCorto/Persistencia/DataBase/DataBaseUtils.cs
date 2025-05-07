@@ -10,7 +10,8 @@ namespace Persistencia.DataBase
 {
     public class DataBaseUtils
     {
-        string archivoCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Persistencia\DataBase\Tablas\");
+        string archivoCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\");
+
 
         public List<String> BuscarRegistro(String nombreArchivo)
         {
@@ -110,29 +111,42 @@ namespace Persistencia.DataBase
         public string BuscarUsuario(string nombreArchivo, string nombreUsuario)
         {
             string rutaArchivo = Path.Combine(archivoCsv, nombreArchivo);
-            MessageBox.Show(rutaArchivo);
+
+            if (!File.Exists(rutaArchivo))
+                return null;
+
             try
             {
-                using (StreamReader sr = new StreamReader(rutaArchivo))
+                using (var fs = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader sr = new StreamReader(fs))
                 {
                     string linea;
                     while ((linea = sr.ReadLine()) != null)
                     {
-                        string[] campos = linea.Split(';'); // ← esto es lo que tenés que volver a poner
-                        if (campos.Length >= 2 && campos[1].Trim() == nombreUsuario.Trim())
+                        string[] campos = linea.Split(';');
+
+                        if (campos.Length >= 2)
                         {
-                            return linea;
+                            string usuarioLeido = campos[1].Trim();
+                            string usuarioIngresado = nombreUsuario.Trim();
+
+                            if (string.Equals(usuarioLeido, usuarioIngresado, StringComparison.OrdinalIgnoreCase))
+                            {
+                                return linea;
+                            }
                         }
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine("Error al leer el archivo:");
-                Console.WriteLine(e.Message);
+                // Log opcional o manejo de error, si querés
             }
 
             return null;
         }
+
+
+
     }
 }
