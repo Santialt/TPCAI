@@ -13,10 +13,12 @@ namespace Persistencia
         public Credencial login(String username)
         {
             DataBaseUtils dataBaseUtils = new DataBaseUtils();
-            List<String> registros = dataBaseUtils.BuscarRegistro(username);
+            string linea = dataBaseUtils.BuscarUsuario("credenciales.csv", username);
 
-            Credencial credencial = new Credencial(registros[0]);
-            return credencial;
+            if (string.IsNullOrEmpty(linea))
+                return null;
+
+            return new Credencial(linea);
         }
     }
 }

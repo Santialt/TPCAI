@@ -21,11 +21,29 @@ namespace TemplateTPCorto
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            String usuario = txtUsuario.Text;
+            String usuario = txtUsuario.Text.Trim();
             String password = txtPassword.Text;
-
+            
             LoginNegocio loginNegocio = new LoginNegocio();
-            Credencial credencial = loginNegocio.login(usuario, password);
+            string mensaje;
+
+            Credencial credencial = loginNegocio.login(usuario, password, out mensaje);
+
+            MessageBox.Show(mensaje);
+
+            if (credencial != null)
+            {
+                // Login exitoso: redirigir o cargar siguiente pantalla
+                // Por ejemplo:
+                 Menu menu = new Menu(credencial);
+                 menu.Show();
+                 this.Hide();
+            }
+
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
 
         }
     }

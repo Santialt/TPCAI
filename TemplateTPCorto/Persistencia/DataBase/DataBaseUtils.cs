@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Persistencia.DataBase
 {
     public class DataBaseUtils
     {
-        string archivoCsv = @"C:\Users\p044755\source\repos\TemplateTPIntegrador\TemplateTPCorto\Persistencia\DataBase\Tablas\";
+        string archivoCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Persistencia\DataBase\Tablas\");
+
         public List<String> BuscarRegistro(String nombreArchivo)
         {
             archivoCsv = archivoCsv + nombreArchivo; // Cambia esta ruta al archivo CSV que deseas leer
@@ -105,6 +107,32 @@ namespace Persistencia.DataBase
                 Console.WriteLine($"Pila de errores: {e.StackTrace}");
             }
         }
+        public string BuscarUsuario(string nombreArchivo, string nombreUsuario)
+        {
+            string rutaArchivo = Path.Combine(archivoCsv, nombreArchivo);
+            MessageBox.Show(rutaArchivo);
+            try
+            {
+                using (StreamReader sr = new StreamReader(rutaArchivo))
+                {
+                    string linea;
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        string[] campos = linea.Split(';'); // ← esto es lo que tenés que volver a poner
+                        if (campos.Length >= 2 && campos[1].Trim() == nombreUsuario.Trim())
+                        {
+                            return linea;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al leer el archivo:");
+                Console.WriteLine(e.Message);
+            }
 
+            return null;
+        }
     }
 }
