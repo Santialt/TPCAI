@@ -34,5 +34,10 @@ namespace Datos
 
         }
 
+        public override String ToString()
+        {
+            return this._legajo + ";" + this._nombreUsuario + ";" + this._contrasena + ";" + this._fechaAlta.ToString("d/M/yyyy", CultureInfo.InvariantCulture)
+                + ";" + this._fechaUltimoLogin.ToString("d/M/yyyy", CultureInfo.InvariantCulture);
+        }
     }
 }
