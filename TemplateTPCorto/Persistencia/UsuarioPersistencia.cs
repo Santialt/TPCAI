@@ -20,5 +20,13 @@ namespace Persistencia
 
             return new Credencial(linea);
         }
+        public void actualizarPrimerLogin(Credencial credencial)
+        {
+            DataBaseUtils dataBaseUtils = new DataBaseUtils();
+            dataBaseUtils.BorrarRegistro(credencial.Legajo, "credenciales.csv");
+            dataBaseUtils.AgregarRegistro("credenciales.csv", credencial.ToString());
+
+            return;
+        }
     }
 }

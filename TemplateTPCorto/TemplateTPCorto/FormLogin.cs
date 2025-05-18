@@ -33,6 +33,16 @@ namespace TemplateTPCorto
 
             if (credencial != null)
             {
+                // login exitoso sin fecha ultimo ingreso >> form cambiocontraseña
+
+                if (credencial.FechaUltimoLogin == null || credencial.FechaUltimoLogin == DateTime.MinValue) //chequear new datetime
+                {
+                    FormCambioContraseña cambiocontraseña = new FormCambioContraseña(credencial);
+                    cambiocontraseña.Show();
+                    this.Hide();
+                    return;
+                }
+
                 // Login exitoso: redirigir o cargar siguiente pantalla
                 // Por ejemplo:
                  Menu menu = new Menu(credencial);
