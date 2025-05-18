@@ -72,6 +72,7 @@
             this.Controls.Add(this.txtPassword);
             this.Name = "FormCambioContraseña";
             this.Text = "FormCambioContraseña";
+            this.Load += new System.EventHandler(this.FormCambioContraseña_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

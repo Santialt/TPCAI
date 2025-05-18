@@ -34,18 +34,17 @@ namespace TemplateTPCorto
             if (credencial != null)
             {
                 // login exitoso sin fecha ultimo ingreso >> form cambiocontraseña
-
-                if (credencial.FechaUltimoLogin == null || credencial.FechaUltimoLogin == DateTime.MinValue) //chequear new datetime
+                if (credencial.FechaUltimoLogin == DateTime.MinValue)
                 {
-                    FormCambioContraseña cambiocontraseña = new FormCambioContraseña(credencial);
-                    cambiocontraseña.Show();
                     this.Hide();
+                    FormCambioContraseña cambiocontraseña = new FormCambioContraseña(credencial);
+                    cambiocontraseña.ShowDialog(); // Mostrás como form modal
+                    this.Show(); 
                     return;
                 }
 
                 // Login exitoso: redirigir o cargar siguiente pantalla
-                // Por ejemplo:
-                 Menu menu = new Menu(credencial);
+                Menu menu = new Menu(credencial);
                  menu.Show();
                  this.Hide();
             }

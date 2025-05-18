@@ -36,8 +36,13 @@ namespace TemplateTPCorto
 
             Menu menu = new Menu(credencial);
             menu.Show();
-            this.Hide();
+            this.Close();
             return;
+        }
+
+        private void FormCambioContraseña_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
