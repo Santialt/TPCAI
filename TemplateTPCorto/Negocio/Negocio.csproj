@@ -43,8 +43,9 @@
   <ItemGroup>
     <Compile Include="LoginPerfil.cs" />
     <Compile Include="LoginNegocio.cs" />
+    <Compile Include="OperacionAdministrador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Supervisor.cs" />
+    <Compile Include="OperacionSupervisor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">

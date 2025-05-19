@@ -69,16 +69,24 @@ namespace TemplateTPCorto
         
 
         private void button2_Click(object sender, EventArgs e)
-        { 
+        {
+            OperacionSupervisor supervisor = new OperacionSupervisor();
             string nombreusuario = textBox2.Text;
             string contrasena = textBox3.Text;
             string fechaalta = textBox4.Text;
             string fechaultimologin = textBox5.Text;
             string legajo = textBox6.Text;
-            string idcambio = "1";
+            string idcambio = supervisor.ObtenerProximoIdCambio("operacion_cambio_credencial.csv");
+            string tipo_operacion = "Cambio de Credencial";
+            string estado = "Pendiente";    
+            string legajo_solicitante = credencial.Legajo;
+            string autorizador = "";
+            string fecha_autorizacion = "";
+
+            string solicitud_autorizacion = idcambio + ";" + tipo_operacion + ";" + estado + ";" + legajo_solicitante + ";" + DateTime.Now + ";" + autorizador + ";" + fecha_autorizacion ;
+            supervisor.AgregarSolicitud(solicitud_autorizacion, "autorizacion.csv");
             string credencialcambio= idcambio + ";" + legajo + ";" + nombreusuario + ";" + contrasena + ";" + fechaalta + ";" + fechaultimologin;
-            Supervisor supervisor = new Supervisor();
-            supervisor.AgregarSolicitud(credencialcambio);
+            supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_credencial.csv");
         }
 
         private void label7_Click(object sender, EventArgs e)

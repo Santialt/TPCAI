@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministradorPersistencia.cs" />
     <Compile Include="DataBase\DataBaseUtils.cs" />
     <Compile Include="PerfilPersistencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +55,9 @@
     <None Include="DataBase\Tablas\credenciales.csv" />
     <None Include="DataBase\Tablas\login_intentos.csv" />
     <None Include="DataBase\Tablas\operacion_cambio_credencial.csv" />
-    <None Include="DataBase\Tablas\operacion_cambio_persona.csv" />
+    <Content Include="DataBase\Tablas\operacion_cambio_persona.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="DataBase\Tablas\perfil.csv" />
     <None Include="DataBase\Tablas\perfil_rol.csv" />
     <None Include="DataBase\Tablas\persona.csv" />
