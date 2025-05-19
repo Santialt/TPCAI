@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +46,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="MenuAdministrador.cs">
       <SubType>Form</SubType>
@@ -57,8 +59,6 @@
     </Compile>
     <Compile Include="FormCambioContraseña.Designer.cs">
       <DependentUpon>FormCambioContraseña.cs</DependentUpon>
-    </Compile>
-
     </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
@@ -114,12 +114,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">
       <Project>{5df50a35-3aef-461d-90b9-687b77b5746f}</Project>
@@ -130,5 +133,6 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
