@@ -41,9 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<ItemGroup>
+    <Compile Include="CambioContrasena.cs" />
     <Compile Include="LoginPerfil.cs" />
     <Compile Include="LoginNegocio.cs" />
     <Compile Include="OperacionAdministrador.cs" />
+    <Compile Include="PrimerLogin.cs" />
+    <Compile Include="OperacionSupervisor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+</ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OperacionSupervisor.cs" />
   </ItemGroup>

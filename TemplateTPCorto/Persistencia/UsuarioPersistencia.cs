@@ -10,7 +10,7 @@ namespace Persistencia
 {
     public class UsuarioPersistencia
     {
-        public Credencial login(String username)
+        public Credencial login(string username)
         {
             DataBaseUtils dataBaseUtils = new DataBaseUtils();
             string linea = dataBaseUtils.BuscarUsuario("credenciales.csv", username);
@@ -19,6 +19,17 @@ namespace Persistencia
                 return null;
 
             return new Credencial(linea);
+        }
+
+        public void actualizarPrimerLogin(Credencial credencial)
+        {
+            DataBaseUtils dataBaseUtils = new DataBaseUtils();
+
+            // Borra la línea vieja del usuario
+            dataBaseUtils.BorrarRegistro(credencial.Legajo, "credenciales.csv");
+
+            // Agrega la línea nueva con datos actualizados
+            dataBaseUtils.AgregarRegistro("credenciales.csv", credencial.ToString());
         }
     }
 }

@@ -15,9 +15,7 @@ namespace Persistencia.DataBase
 
         public List<String> BuscarRegistro(String nombreArchivo)
         {
-            archivoCsv = archivoCsv + nombreArchivo; // Cambia esta ruta al archivo CSV que deseas leer
-
-            String rutaArchivo = Path.GetFullPath(archivoCsv); // Normaliza la ruta
+            String rutaArchivo = Path.GetFullPath(archivoCsv + nombreArchivo); // Normaliza la ruta
 
             List<String> listado = new List<String>();
 
@@ -43,16 +41,16 @@ namespace Persistencia.DataBase
         // Método para borrar un registro
         public void BorrarRegistro(string id, String nombreArchivo)
         {
-            archivoCsv = archivoCsv + nombreArchivo; // Cambia esta ruta al archivo CSV que deseas leer
+            String archivoParaBorrar = archivoCsv + nombreArchivo; // Cambia esta ruta al archivo CSV que deseas leer
 
-            String rutaArchivo = Path.GetFullPath(archivoCsv); // Normaliza la ruta
+            String rutaArchivo = Path.GetFullPath(archivoParaBorrar); // Normaliza la ruta
 
             try
             {
                 // Verificar si el archivo existe
                 if (!File.Exists(rutaArchivo))
                 {
-                    Console.WriteLine("El archivo no existe: " + archivoCsv);
+                    Console.WriteLine("El archivo no existe: " + archivoParaBorrar);
                     return;
                 }
 
@@ -67,7 +65,7 @@ namespace Persistencia.DataBase
                 }).ToList();
 
                 // Sobrescribir el archivo con las líneas restantes
-                File.WriteAllLines(archivoCsv, registrosRestantes);
+                File.WriteAllLines(archivoParaBorrar, registrosRestantes);
 
                 Console.WriteLine($"Registro con ID {id} borrado correctamente.");
             }
@@ -82,19 +80,20 @@ namespace Persistencia.DataBase
         // Método para agregar un registro
         public void AgregarRegistro(string nombreArchivo, string nuevoRegistro)
         {
-            string archivoCsv = Path.Combine(Directory.GetCurrentDirectory(), "Persistencia", "Datos", nombreArchivo);
+            String rutaArchivo = Path.GetFullPath(archivoCsv + nombreArchivo);
+            //string archivoCsv = Path.Combine(Directory.GetCurrentDirectory(), "Persistencia", "Datos", nombreArchivo);
 
             try
             {
                 // Verificar si el archivo existe
-                if (!File.Exists(archivoCsv))
+                if (!File.Exists(rutaArchivo))
                 {
-                    Console.WriteLine("El archivo no existe: " + archivoCsv);
+                    Console.WriteLine("El archivo no existe: " + rutaArchivo);
                     return;
                 }
 
                 // Abrir el archivo y agregar el nuevo registro
-                using (StreamWriter sw = new StreamWriter(archivoCsv, append: true))
+                using (StreamWriter sw = new StreamWriter(rutaArchivo, append: true))
                 {
                     sw.WriteLine(nuevoRegistro); // Agregar la nueva línea
                 }

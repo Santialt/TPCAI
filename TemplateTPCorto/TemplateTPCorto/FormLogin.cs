@@ -21,66 +21,75 @@ namespace TemplateTPCorto
             InitializeComponent();
         }
 
-        private void btnIngresar_Click(object sender, EventArgs e)
+       private void btnIngresar_Click(object sender, EventArgs e)
+{
+    String usuario = txtUsuario.Text.Trim();
+    String password = txtPassword.Text;
+
+    LoginNegocio loginNegocio = new LoginNegocio();
+    string mensaje;
+
+    Credencial credencial = loginNegocio.login(usuario, password, out mensaje);
+
+    MessageBox.Show(mensaje);
+
+    if (credencial != null)
+    {
+        // 👇 Validar si es primer login o pasaron más de 30 días
+        bool esPrimerLogin = credencial.FechaUltimoLogin == DateTime.MinValue;
+        bool pasaron30Dias = (DateTime.Now - credencial.FechaUltimoLogin).TotalDays > 30;
+
+        if (esPrimerLogin || pasaron30Dias)
         {
-            String usuario = txtUsuario.Text.Trim();
-            String password = txtPassword.Text;
-            
-            LoginNegocio loginNegocio = new LoginNegocio();
-            string mensaje;
+            this.Hide();
+            FormCambioContraseña cambiocontraseña = new FormCambioContraseña(credencial);
+            cambiocontraseña.ShowDialog(); // modal
+            this.Show(); // volver si se cierra
+            return;
+        }
 
-            Credencial credencial = loginNegocio.login(usuario, password, out mensaje);
+        // 🔓 Obtener perfil y roles del usuario
+        UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
+        LoginPerfil loginPerfil = new LoginPerfil();
 
-            MessageBox.Show(mensaje);
+        usuarioPerfil.IdPerfil1 = loginPerfil.BuscarLegajo(credencial);
+        usuarioPerfil.NombrePerfil1 = loginPerfil.ObtenerNombrePerfil(usuarioPerfil.IdPerfil1);
+        List<string> idRoles = loginPerfil.ObtenerIdRoles(usuarioPerfil.IdPerfil1);
 
-            if (credencial != null)
-            {
-                // Login exitoso: redirigir o cargar siguiente pantalla
-                // Por ejemplo:
-                UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-                List<string> strings = new List<string>();
+        foreach (string idRol in idRoles)
+        {
+            string nombreRol = loginPerfil.ObtenerNombreRol(idRol);
+            if (nombreRol != null)
+                usuarioPerfil.Roles1.Add(nombreRol);
+        }
 
-
-                LoginPerfil loginPerfil = new LoginPerfil();
-                usuarioPerfil.IdPerfil1 = loginPerfil.BuscarLegajo(credencial);
-                usuarioPerfil.NombrePerfil1 = loginPerfil.ObtenerNombrePerfil(usuarioPerfil.IdPerfil1);
-                List<string> idRoles = loginPerfil.ObtenerIdRoles(usuarioPerfil.IdPerfil1);
-                foreach (string idRol in idRoles)
-                {
-                    string nombreRol = loginPerfil.ObtenerNombreRol(idRol);
-                    if (nombreRol != null)
-                        usuarioPerfil.Roles1.Add(nombreRol);
-                }
-                if (usuarioPerfil.IdPerfil1 == "1")
-                {
-
-                    MenuOperador menuoperador = new MenuOperador(credencial, usuarioPerfil);
-                    this.Hide();
-                    menuoperador.Show();
-
-
-
-                }
-                else if (usuarioPerfil.IdPerfil1 == "2")
-                {
-                    MenuSupervisor menuSupervisor = new MenuSupervisor(credencial,usuarioPerfil);   
-                    this.Hide();
-                    menuSupervisor.Show();
-                  
-                   
-                }
-                else if (usuarioPerfil.IdPerfil1 == "3")
-                {
-                   
-                    MenuAdministrador menuadministrador = new MenuAdministrador(credencial,usuarioPerfil);
-                    this.Hide();
-                    menuadministrador.Show();
-                    
+        // 👥 Redirigir al menú correspondiente según perfil
+        if (usuarioPerfil.IdPerfil1 == "1")
+        {
+            MenuOperador menuOperador = new MenuOperador(credencial, usuarioPerfil);
+            this.Hide();
+            menuOperador.Show();
+        }
+        else if (usuarioPerfil.IdPerfil1 == "2")
+        {
+            MenuSupervisor menuSupervisor = new MenuSupervisor(credencial, usuarioPerfil);
+            this.Hide();
+            menuSupervisor.Show();
+        }
+        else if (usuarioPerfil.IdPerfil1 == "3")
+        {
+            MenuAdministrador menuAdministrador = new MenuAdministrador(credencial, usuarioPerfil);
+            this.Hide();
+            menuAdministrador.Show();
+        }
+    }
+}
 
 
-                }
         
-            }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
 
         }
 
