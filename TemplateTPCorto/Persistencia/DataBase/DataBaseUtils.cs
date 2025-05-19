@@ -145,7 +145,35 @@ namespace Persistencia.DataBase
             return null;
         }
 
+        public void RegistrarLineaEnArchivo(string nombreArchivo, string linea) // se creo un nuevo método para registrar una línea en el archivo 
+        {
+            // Ruta base desde la carpeta del proyecto 
+            string rutaRelativa = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas" , nombreArchivo);
+            string rutaCompleta = Path.GetFullPath(rutaRelativa);
 
+            try
+            {
+                // se verifica que exista la carpeta destino
+                string carpeta = Path.GetDirectoryName(rutaCompleta);
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
+
+                // se abre el archivo en modo append, si no existe lo crea
+                using (StreamWriter sw = new StreamWriter(rutaCompleta, append: true))
+                {
+                    sw.WriteLine(linea);
+                }
+
+                Console.WriteLine("Línea registrada correctamente en el archivo.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al registrar la línea:");
+                Console.WriteLine($"Mensaje: {ex.Message}");
+            }
+        }
 
     }
 }
