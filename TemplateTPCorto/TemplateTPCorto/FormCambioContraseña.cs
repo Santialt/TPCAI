@@ -20,29 +20,47 @@ namespace TemplateTPCorto
         public FormCambioContraseña(Credencial credencial)
         {
             InitializeComponent();
+            this.Load += new System.EventHandler(this.FormCambioContraseña_Load);
             this.credencial = credencial;
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            string mensaje;
-            String password = txtPassword.Text;
-            this.credencial.Contrasena = password;
-            this.credencial.FechaUltimoLogin = DateTime.Now;
+            string nuevaPassword = txtPassword.Text;
 
-            PrimerLogin primerLogin = new PrimerLogin();
-            primerLogin.actualizarPrimerLogin(credencial, out mensaje);
+         
+            if (nuevaPassword.Length < 8)
+            {
+                MessageBox.Show("La contraseña debe tener al menos 8 caracteres.");
+                return;
+            }
+
+           
+            if (nuevaPassword == credencial.Contrasena)
+            {
+                MessageBox.Show("La nueva contraseña no puede ser igual a la anterior.");
+                return;
+            }
+
+          
+            CambioContrasena cambioNegocio = new CambioContrasena();
+            bool fueExitosa;
+            string mensaje = cambioNegocio.CambiarPassword(credencial.NombreUsuario, nuevaPassword, out fueExitosa);
+
             MessageBox.Show(mensaje);
 
-            Menu menu = new Menu(credencial);
-            menu.Show();
-            this.Close();
-            return;
+            if (fueExitosa)
+            {
+                Menu menu = new Menu(credencial);
+                menu.Show();
+                this.Close();
+            }
         }
 
         private void FormCambioContraseña_Load(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Debe cambiar su contraseña por ser el primer ingreso o por haber pasado más de 30 días desde el último acceso.");
         }
+
     }
 }

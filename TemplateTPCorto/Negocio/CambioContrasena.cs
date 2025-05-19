@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Negocio
 {
-    public class CambioContrasenaNegocio
+    public class CambioContrasena
     {
         private readonly string _archivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\credenciales.csv");
 

@@ -23,7 +23,7 @@ namespace TemplateTPCorto
         {
             String usuario = txtUsuario.Text.Trim();
             String password = txtPassword.Text;
-            
+
             LoginNegocio loginNegocio = new LoginNegocio();
             string mensaje;
 
@@ -33,23 +33,27 @@ namespace TemplateTPCorto
 
             if (credencial != null)
             {
-                // login exitoso sin fecha ultimo ingreso >> form cambiocontraseña
-                if (credencial.FechaUltimoLogin == DateTime.MinValue)
+                // 👇 Validar si es primer login o pasaron más de 30 días
+                bool esPrimerLogin = credencial.FechaUltimoLogin == DateTime.MinValue;
+                bool pasaron30Dias = (DateTime.Now - credencial.FechaUltimoLogin).TotalDays > 30;
+
+                if (esPrimerLogin || pasaron30Dias)
                 {
                     this.Hide();
                     FormCambioContraseña cambiocontraseña = new FormCambioContraseña(credencial);
-                    cambiocontraseña.ShowDialog(); // Mostrás como form modal
-                    this.Show(); 
+                    cambiocontraseña.ShowDialog(); // modal
+                    this.Show(); // volver si se cierra
                     return;
                 }
 
-                // Login exitoso: redirigir o cargar siguiente pantalla
+                // ✅ Login exitoso normal
                 Menu menu = new Menu(credencial);
-                 menu.Show();
-                 this.Hide();
+                menu.Show();
+                this.Hide();
             }
-
         }
+
+        
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
