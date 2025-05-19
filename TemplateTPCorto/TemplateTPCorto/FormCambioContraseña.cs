@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Datos;
 using Negocio;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TemplateTPCorto
 {
@@ -28,21 +27,18 @@ namespace TemplateTPCorto
         {
             string nuevaPassword = txtPassword.Text;
 
-         
             if (nuevaPassword.Length < 8)
             {
                 MessageBox.Show("La contraseña debe tener al menos 8 caracteres.");
                 return;
             }
 
-           
             if (nuevaPassword == credencial.Contrasena)
             {
                 MessageBox.Show("La nueva contraseña no puede ser igual a la anterior.");
                 return;
             }
 
-          
             CambioContrasena cambioNegocio = new CambioContrasena();
             bool fueExitosa;
             string mensaje = cambioNegocio.CambiarPassword(credencial.NombreUsuario, nuevaPassword, out fueExitosa);
@@ -51,8 +47,7 @@ namespace TemplateTPCorto
 
             if (fueExitosa)
             {
-                Menu menu = new Menu(credencial);
-                menu.Show();
+                // ✅ Se actualizó, volvemos al login
                 this.Close();
             }
         }
@@ -61,6 +56,5 @@ namespace TemplateTPCorto
         {
             MessageBox.Show("Debe cambiar su contraseña por ser el primer ingreso o por haber pasado más de 30 días desde el último acceso.");
         }
-
     }
 }
