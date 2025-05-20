@@ -37,16 +37,35 @@ namespace TemplateTPCorto
             label2.Text = "Bienvenido/a " + credencial.NombreUsuario;
             label4.Text = usuarioPerfil.NombrePerfil1;
             OperacionAdministrador operacionAdministrador = new OperacionAdministrador();
-            List<string> lineas = operacionAdministrador.Leerarchivo("autorizacion.csv");
-            DataTable tablaoriginal = operacionAdministrador.ConvertirCSVaDataTable(lineas);
+            List<string> lineas = operacionAdministrador.Leerarchivo("autorizacion.csv");//  tiene que leer el archivo a veces no lo leia
+            DataTable tablaoriginal = operacionAdministrador.ConvertirCSVaDataTable(lineas); // convierte las lineas a un DataTable
+
 
             dataGridView1.DataSource = tablaoriginal;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-           
+            if (dataGridView1.SelectedRows.Count == 0) // verifica si hay filas seleccionadas
+            {
+                MessageBox.Show("Seleccione una fila primero.");
+                return;
+            }
+
+            string idAutorizacion = dataGridView1.SelectedRows[0].Cells["idOperacion"].Value.ToString(); // obtiene el valor "idOperacion" de la fila seleccionada y con eso busca en el archivo  operacion_cambio_credencial.csv
+
+            try
+            {
+                OperacionAdministrador credencial_a_cambiar = new OperacionAdministrador();
+                credencial_a_cambiar.ProcesarCambio(idAutorizacion);
+                MessageBox.Show("Cambio realizado correctamente.");
+            }
+            catch (Exception ex) // captura cualquier excepción 
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+
 
         }
 

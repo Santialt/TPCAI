@@ -68,7 +68,7 @@ namespace TemplateTPCorto
 
         
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) 
         {
             OperacionSupervisor supervisor = new OperacionSupervisor();
             string nombreusuario = textBox2.Text;

@@ -54,5 +54,46 @@ namespace Negocio
 
             return vista;
         }
+        public void ProcesarCambio(string idAutorizacion)
+        {
+            var operaciones = AdministradorPersistencia.obtenerdatos("operacion_cambio_credencial.csv");
+            var credenciales = AdministradorPersistencia.obtenerdatos("credenciales.csv");
+
+            string operacion = operaciones.FirstOrDefault(lee => lee.StartsWith(idAutorizacion + ";")); // busca la operacion en el archivo operacion_cambio_credencial.csv
+            if (operacion == null)
+                throw new Exception("No se encontró operación para la autorización seleccionada.");
+
+            string[] datosOperacion = operacion.Split(';');
+            string legajo = datosOperacion[1].Trim(); //se agregan las variables para el cambio 
+            string nuevoPerfil = datosOperacion[2].Trim();
+            string contraseña = datosOperacion[3].Trim();
+            string fechaalta = datosOperacion[4].Trim();
+
+
+
+            bool modificado = false;
+            for (int i = 0; i < credenciales.Count; i++)
+            {
+                string[] partes = credenciales[i].Split(';');
+                if (partes[0] == legajo)
+                {
+                    partes[1] = nuevoPerfil; // cambio de perfil
+                    partes[2] = contraseña; // cambio de contraseña
+                    partes[3] = fechaalta; // cambio de fecha alta
+
+
+
+
+                    credenciales[i] = string.Join(";", partes);
+                    modificado = true;
+                    break;
+                }
+            }
+
+            if (!modificado)
+                throw new Exception("No se encontró legajo en credenciales."); // si no se encuentra el legajo en credenciales
+
+            AdministradorPersistencia.EscribirArchivo("credenciales.csv", credenciales); // se escribe el archivo
+        }
     }
 }
