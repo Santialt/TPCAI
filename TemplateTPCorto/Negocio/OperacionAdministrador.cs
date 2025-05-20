@@ -26,7 +26,7 @@ namespace Negocio
             if (lineas == null || lineas.Count == 0)
                 return tabla;
 
-            // Crear columnas
+            
             string[] columnas = lineas[0].Split(';');
 
             foreach (string columna in columnas)
@@ -34,7 +34,7 @@ namespace Negocio
                 tabla.Columns.Add(columna.Trim());
             }
 
-            // Agregar filas
+            
             for (int i = 1; i < lineas.Count; i++)
             {
                 string[] valores = lineas[i].Split(';');
@@ -43,29 +43,30 @@ namespace Negocio
 
             return tabla;
         }
-        public DataView FiltrarPorEstado(DataTable tabla, string estado)
+        public DataView FiltrarPorEstado(DataTable tabla, string estado) /
         {
             DataView vista = new DataView(tabla);
 
-            if (!string.IsNullOrEmpty(estado) && estado.ToLower() != "todos")
+            if (!string.IsNullOrEmpty(estado) && estado.ToLower() != "todos") // Verifica si el estado no es nulo o vacío
             {
-                vista.RowFilter = $"estado = '{estado}'";
+                vista.RowFilter = $"estado = '{estado}'"; // Filtra por estado
             }
 
             return vista;
         }
-        public void ProcesarCambio(string idAutorizacion)
+        public void ProcesarCambio(string idAutorizacion) // Método para procesar el cambio de credencial
         {
             var operaciones = AdministradorPersistencia.obtenerdatos("operacion_cambio_credencial.csv"); 
             var credenciales = AdministradorPersistencia.obtenerdatos("credenciales.csv");
 
             string operacion = operaciones.FirstOrDefault(largo => largo.StartsWith(idAutorizacion + ";")); // Busca la operación por ID
             if (operacion == null)
-                throw new Exception("No se encontró operación para la autorización seleccionada.");
+                throw new Exception("No se encontró operación para la autorización seleccionada."); // Lanza excepción si no se encuentra la operación
 
             string[] datosOperacion = operacion.Split(';');
             string legajo = datosOperacion[1].Trim();
             string nuevoPerfil = datosOperacion[2].Trim();
+            
 
             bool modificado = false;
             for (int i = 0; i < credenciales.Count; i++)
@@ -73,7 +74,7 @@ namespace Negocio
                 string[] partes = credenciales[i].Split(';');
                 if (partes[0] == legajo)
                 {
-                    partes[1] = nuevoPerfil; // Se asume que el perfil es el campo 3
+                    partes[1] = nuevoPerfil; // Actualiza el perfil
                     credenciales[i] = string.Join(";", partes);
                     modificado = true;
                     break;
@@ -83,7 +84,7 @@ namespace Negocio
             if (!modificado)
                 throw new Exception("No se encontró legajo en credenciales.");
 
-            AdministradorPersistencia.EscribirArchivo("credenciales.csv", credenciales);
+            AdministradorPersistencia.EscribirArchivo("credenciales.csv", credenciales); // Escribe el archivo actualizado
         }
     }
 }
