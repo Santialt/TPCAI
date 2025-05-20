@@ -74,8 +74,8 @@ namespace Negocio
                 string[] partes = credenciales[i].Split(';');
                 if (partes[0] == legajo)
                 {
-                    partes[1] = nuevoPerfil; // Actualiza el perfil
-                    credenciales[i] = string.Join(";", partes);
+                    partes[1] = nuevoPerfil; // Actualiza el perfil 
+                    credenciales[i] = string.Join(";", partes); // Une las partes de nuevo
                     modificado = true;
                     break;
                 }
