@@ -56,10 +56,10 @@ namespace Negocio
         }
         public void ProcesarCambio(string idAutorizacion)
         {
-            var operaciones = AdministradorPersistencia.obtenerdatos("operacion_cambio_credencial.csv");
+            var operaciones = AdministradorPersistencia.obtenerdatos("operacion_cambio_credencial.csv"); 
             var credenciales = AdministradorPersistencia.obtenerdatos("credenciales.csv");
 
-            string operacion = operaciones.FirstOrDefault(l => l.StartsWith(idAutorizacion + ";"));
+            string operacion = operaciones.FirstOrDefault(largo => largo.StartsWith(idAutorizacion + ";")); // Busca la operación por ID
             if (operacion == null)
                 throw new Exception("No se encontró operación para la autorización seleccionada.");
 
