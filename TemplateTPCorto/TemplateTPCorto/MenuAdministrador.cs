@@ -45,8 +45,25 @@ namespace TemplateTPCorto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-           
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione una fila primero.");
+                return;
+            }
+
+            string idAutorizacion = dataGridView1.SelectedRows[0].Cells["idOperacion"].Value.ToString();
+
+            try
+            {
+                OperacionAdministrador logica = new OperacionAdministrador();
+                logica.ProcesarCambio(idAutorizacion);
+                MessageBox.Show("Cambio realizado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
 
         }
 
@@ -57,6 +74,11 @@ namespace TemplateTPCorto
             DataView vistaFiltrada = operacionAdministrador.FiltrarPorEstado(tablaoriginal, estadoSeleccionado);
 
             dataGridView1.DataSource = vistaFiltrada;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
