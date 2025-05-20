@@ -19,22 +19,18 @@ namespace Negocio
             return lineas;
 
         }
-        public DataTable ConvertirCSVaDataTable(List<string> lineas)
+        public DataTable ConvertirCSVaDataTable(List<string> lineas) // convierte el archivo csv a un DataTable para visualizarlo
         {
             DataTable tabla = new DataTable();
 
             if (lineas == null || lineas.Count == 0)
                 return tabla;
-
-            // Crear columnas
             string[] columnas = lineas[0].Split(';');
 
             foreach (string columna in columnas)
             {
                 tabla.Columns.Add(columna.Trim());
             }
-
-            // Agregar filas
             for (int i = 1; i < lineas.Count; i++)
             {
                 string[] valores = lineas[i].Split(';');
@@ -43,13 +39,13 @@ namespace Negocio
 
             return tabla;
         }
-        public DataView FiltrarPorEstado(DataTable tabla, string estado)
+        public DataView FiltrarPorEstado(DataTable tabla, string estado) // metodo no funciona
         {
             DataView vista = new DataView(tabla);
 
-            if (!string.IsNullOrEmpty(estado) && estado.ToLower() != "todos")
+            if (!string.IsNullOrEmpty(estado) && estado.ToLower() != "todos") // verifica si el estado no es nulo o vacio y si no es "todos"
             {
-                vista.RowFilter = $"estado = '{estado}'";
+                vista.RowFilter = $"estado = '{estado}'"; // filtra por estado
             }
 
             return vista;

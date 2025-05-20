@@ -15,7 +15,7 @@ namespace Negocio
         DataBaseUtils dataBaseUtils = new DataBaseUtils();  
         public void AgregarSolicitud(string credencialacambiar,string nombrearchivo)
         {
-            supervisorPersistencia.agregarsolicitud(credencialacambiar ,nombrearchivo);
+            supervisorPersistencia.agregarsolicitud(credencialacambiar ,nombrearchivo); // agrega la solicitud al archivo
         }
         public string ObtenerProximoIdCambio(string nombreArchivo)
         {
@@ -26,7 +26,7 @@ namespace Negocio
                 for (int i = 1; i < lineas.Count; i++)
                 {
                     string[] columnas = lineas[i].Split(';');
-                    if (columnas.Length > 0 && int.TryParse(columnas[0], out int id))
+                    if (columnas.Length > 0 && int.TryParse(columnas[0], out int id)) 
                     {
                         if (id > ultimoId)
                             ultimoId = id;

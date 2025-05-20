@@ -21,7 +21,7 @@ namespace Persistencia
         public void EscribirArchivo(string nombreArchivo, List<string> lineas)
         {
             string ruta = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", nombreArchivo));
-            File.WriteAllLines(ruta, lineas);
+            File.WriteAllLines(ruta, lineas); 
         }
     }
 }
