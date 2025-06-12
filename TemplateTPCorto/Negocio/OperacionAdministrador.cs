@@ -96,15 +96,14 @@ namespace Negocio
                 string[] partes = autorizaciones[i].Split(';');
                 if (partes[0] == idAutorizacion)
                 {
-                    partes[2] = "Autorizado"; // estado
-                    partes[5] = legajoAdministrador; // legajo del administrador
-                    partes[6] = DateTime.Now.ToString(); // fecha de autorizacion
+                    partes[2] = "Autorizado";              // estado
+                    partes[5] = legajoAdministrador;       // legajo autorizador
+                    partes[6] = DateTime.Now.ToString();   // fecha autorización
                     autorizaciones[i] = string.Join(";", partes);
                     break;
                 }
             }
-
-            AdministradorPersistencia.EscribirArchivo("autorizacion.csv", autorizaciones); // actualiza autorizaciones
+            AdministradorPersistencia.EscribirArchivo("autorizacion.csv", autorizaciones);
         }
     }
 }
