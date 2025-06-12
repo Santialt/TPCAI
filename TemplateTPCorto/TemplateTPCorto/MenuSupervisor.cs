@@ -87,6 +87,7 @@ namespace TemplateTPCorto
             supervisor.AgregarSolicitud(solicitud_autorizacion, "autorizacion.csv");
             string credencialcambio= idcambio + ";" + legajo + ";" + nombreusuario + ";" + contrasena + ";" + fechaalta + ";" + fechaultimologin;
             supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_credencial.csv");
+            MessageBox.Show("Solicitud enviada correctamente.");
         }
 
         private void label7_Click(object sender, EventArgs e)

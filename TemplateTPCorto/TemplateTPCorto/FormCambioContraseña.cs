@@ -19,7 +19,7 @@ namespace TemplateTPCorto
         public FormCambioContraseña(Credencial credencial)
         {
             InitializeComponent();
-            this.Load += new System.EventHandler(this.FormCambioContraseña_Load);
+            //this.Load += new System.EventHandler(this.FormCambioContraseña_Load);
             this.credencial = credencial;
         }
 

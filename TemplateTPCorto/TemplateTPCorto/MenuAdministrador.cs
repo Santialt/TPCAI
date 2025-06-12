@@ -38,7 +38,7 @@ namespace TemplateTPCorto
             label4.Text = usuarioPerfil.NombrePerfil1;
             OperacionAdministrador operacionAdministrador = new OperacionAdministrador();
             List<string> lineas = operacionAdministrador.Leerarchivo("autorizacion.csv");//  tiene que leer el archivo a veces no lo leia
-            DataTable tablaoriginal = operacionAdministrador.ConvertirCSVaDataTable(lineas); // convierte las lineas a un DataTable
+            tablaoriginal = operacionAdministrador.ConvertirCSVaDataTable(lineas);
 
 
             dataGridView1.DataSource = tablaoriginal;
@@ -57,7 +57,7 @@ namespace TemplateTPCorto
             try
             {
                 OperacionAdministrador credencial_a_cambiar = new OperacionAdministrador();
-                credencial_a_cambiar.ProcesarCambio(idAutorizacion);
+                credencial_a_cambiar.ProcesarCambio(idAutorizacion, credencial.Legajo);
                 MessageBox.Show("Cambio realizado correctamente.");
             }
             catch (Exception ex) // captura cualquier excepción 
@@ -76,6 +76,11 @@ namespace TemplateTPCorto
             DataView vistaFiltrada = operacionAdministrador.FiltrarPorEstado(tablaoriginal, estadoSeleccionado);
 
             dataGridView1.DataSource = vistaFiltrada;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

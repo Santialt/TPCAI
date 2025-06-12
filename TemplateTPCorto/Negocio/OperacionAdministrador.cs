@@ -50,10 +50,11 @@ namespace Negocio
 
             return vista;
         }
-        public void ProcesarCambio(string idAutorizacion)
+        public void ProcesarCambio(string idAutorizacion, string legajoAdministrador)
         {
             var operaciones = AdministradorPersistencia.obtenerdatos("operacion_cambio_credencial.csv");
             var credenciales = AdministradorPersistencia.obtenerdatos("credenciales.csv");
+            var autorizaciones = AdministradorPersistencia.obtenerdatos("autorizacion.csv");
 
             string operacion = operaciones.FirstOrDefault(lee => lee.StartsWith(idAutorizacion + ";")); // busca la operacion en el archivo operacion_cambio_credencial.csv
             if (operacion == null)
@@ -90,6 +91,20 @@ namespace Negocio
                 throw new Exception("No se encontró legajo en credenciales."); // si no se encuentra el legajo en credenciales
 
             AdministradorPersistencia.EscribirArchivo("credenciales.csv", credenciales); // se escribe el archivo
+            for (int i = 1; i < autorizaciones.Count; i++)
+            {
+                string[] partes = autorizaciones[i].Split(';');
+                if (partes[0] == idAutorizacion)
+                {
+                    partes[2] = "Autorizado"; // estado
+                    partes[5] = legajoAdministrador; // legajo del administrador
+                    partes[6] = DateTime.Now.ToString(); // fecha de autorizacion
+                    autorizaciones[i] = string.Join(";", partes);
+                    break;
+                }
+            }
+
+            AdministradorPersistencia.EscribirArchivo("autorizacion.csv", autorizaciones); // actualiza autorizaciones
         }
     }
 }
