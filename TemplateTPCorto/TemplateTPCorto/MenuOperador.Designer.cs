@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cargarVenta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -71,20 +71,20 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Nombre perfil";
             // 
-            // button1
+            // cargarVenta
             // 
-            this.button1.Location = new System.Drawing.Point(25, 272);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cargarVenta.Location = new System.Drawing.Point(64, 260);
+            this.cargarVenta.Name = "cargarVenta";
+            this.cargarVenta.Size = new System.Drawing.Size(148, 23);
+            this.cargarVenta.TabIndex = 4;
+            this.cargarVenta.Text = "Cargar Venta";
+            this.cargarVenta.UseVisualStyleBackColor = true;
+            this.cargarVenta.Click += new System.EventHandler(this.cargarVenta_Click);
             // 
             // MenuOperador
             // 
             this.ClientSize = new System.Drawing.Size(865, 496);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cargarVenta);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -104,6 +104,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cargarVenta;
     }
 }

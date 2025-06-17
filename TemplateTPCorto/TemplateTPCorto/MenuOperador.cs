@@ -42,9 +42,11 @@ namespace TemplateTPCorto
             // lblUsuario.Text = "Bienvenido, " + credencial.NombreUsuario;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cargarVenta_Click(object sender, EventArgs e)
         {
-            
+            FormVentas formVentas = new FormVentas();
+            this.Hide();
+            formVentas.Show();
         }
     }
 }
