@@ -32,7 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,8 +45,13 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-
   <ItemGroup>
+    <Compile Include="FormVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentas.Designer.cs">
+      <DependentUpon>FormVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuAdministrador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +90,9 @@
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormVentas.resx">
+      <DependentUpon>FormVentas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuAdministrador.resx">
       <DependentUpon>MenuAdministrador.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,15 +121,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">
       <Project>{5df50a35-3aef-461d-90b9-687b77b5746f}</Project>
@@ -133,6 +137,5 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
