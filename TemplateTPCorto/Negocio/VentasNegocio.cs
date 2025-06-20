@@ -44,5 +44,12 @@ namespace Negocio
             return categoriaProductos;
         }
 
+        public bool agregarVenta(Venta venta)
+        {
+            VentaPersistencia ventaPersistencia = new VentaPersistencia();
+            return ventaPersistencia.agregarVenta(venta);
+        }
+
+
     }
 }

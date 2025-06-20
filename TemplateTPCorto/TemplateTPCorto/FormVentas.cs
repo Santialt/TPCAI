@@ -150,5 +150,72 @@ namespace TemplateTPCorto
             lablSubTotal.Text = subTotal.ToString();
             lblTotal.Text = total.ToString();
         }
+
+        private void FormVentas_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnQuitar_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Selecciona un producto del carrito para quitar.");
+                return;
+            }
+
+            Producto productoSeleccionado = (Producto)listBox1.SelectedItem;
+            listBox1.Items.Remove(productoSeleccionado);
+            productosEnCarrito.RemoveAll(p => p.Id.Equals(productoSeleccionado.Id));
+            subTotal -= productoSeleccionado.Precio * productoSeleccionado.Stock;
+            total -= productoSeleccionado.Precio * productoSeleccionado.Stock;
+            actualizarTotales();
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            if (cmbClientes.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un cliente para cargar la venta.");
+                return;
+            }
+
+            if (productosEnCarrito.Count == 0)
+            {
+                MessageBox.Show("Debe agregar productos al carrito.");
+                return;
+            }
+
+            Cliente cliente = (Cliente)cmbClientes.SelectedItem;
+
+            Venta venta = new Venta();
+            venta.IdCliente = cliente.Id;
+            venta.IdUsuario = new Guid("784c07f2-2b26-4973-9235-4064e94832b5");
+
+            foreach (Producto p in productosEnCarrito)
+            {
+                VentaDetalle detalle = new VentaDetalle();
+                detalle.IdProducto = p.Id;
+                detalle.Cantidad = p.Stock;
+                venta.Detalle.Add(detalle);
+            }
+
+            VentasNegocio ventasNegocio = new VentasNegocio();
+            bool ok = ventasNegocio.agregarVenta(venta);
+
+            if (ok)
+            {
+                MessageBox.Show("Venta cargada con éxito");
+                productosEnCarrito.Clear();
+                listBox1.Items.Clear();
+                subTotal = 0.0;
+                total = 0.0;
+                actualizarTotales();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo registrar la venta");
+            }
+        }
     }
 }

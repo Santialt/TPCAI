@@ -66,6 +66,7 @@
             this.btnCargar.TabIndex = 32;
             this.btnCargar.Text = "Cargar Venta";
             this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
             // btnQuitar
             // 
@@ -76,6 +77,7 @@
             this.btnQuitar.TabIndex = 31;
             this.btnQuitar.Text = "Quitar";
             this.btnQuitar.UseVisualStyleBackColor = true;
+            this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             // 
             // lablSubTotal
             // 
@@ -223,6 +225,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbClientes);
             this.Name = "FormVentas";
+            this.Load += new System.EventHandler(this.FormVentas_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
