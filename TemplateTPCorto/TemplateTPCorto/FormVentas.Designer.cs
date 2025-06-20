@@ -55,6 +55,7 @@
             this.btnListarProductos.TabIndex = 33;
             this.btnListarProductos.Text = "Listar productos";
             this.btnListarProductos.UseVisualStyleBackColor = true;
+            this.btnListarProductos.Click += new System.EventHandler(this.btnListarProductos_Click_1);
             // 
             // btnCargar
             // 
@@ -95,6 +96,7 @@
             this.btnAgregar.TabIndex = 29;
             this.btnAgregar.Text = "Agregar a carrito";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // txtCantidad
             // 
@@ -170,6 +172,7 @@
             this.cboCategoriaProductos.Name = "cboCategoriaProductos";
             this.cboCategoriaProductos.Size = new System.Drawing.Size(92, 21);
             this.cboCategoriaProductos.TabIndex = 21;
+            this.cboCategoriaProductos.SelectedIndexChanged += new System.EventHandler(this.cboCategoriaProductos_SelectedIndexChanged);
             // 
             // label2
             // 
