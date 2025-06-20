@@ -123,9 +123,16 @@ namespace TemplateTPCorto
                 MessageBox.Show("Cantidad seleccionada excede el stock disponible, por favor seleccione una cantidad valida.");
                 return;
             }
-            productoSeleccionado.Stock = cantidadAComprar;
-            productosEnCarrito.Add(productoSeleccionado);
-            listBox1.Items.Add(productoSeleccionado);
+            Producto itemCarrito = new Producto();
+            itemCarrito.Id = productoSeleccionado.Id;
+            itemCarrito.IdCategoria = productoSeleccionado.IdCategoria;
+            itemCarrito.Nombre = productoSeleccionado.Nombre;
+            itemCarrito.FechaAlta = productoSeleccionado.FechaAlta;
+            itemCarrito.FechaBaja = productoSeleccionado.FechaBaja;
+            itemCarrito.Precio = productoSeleccionado.Precio;
+            itemCarrito.Stock = cantidadAComprar;
+            productosEnCarrito.Add(itemCarrito);
+            listBox1.Items.Add(itemCarrito);
             subTotal += productoSeleccionado.Precio * cantidadAComprar;
             total += productoSeleccionado.Precio * cantidadAComprar;
             actualizarTotales();
