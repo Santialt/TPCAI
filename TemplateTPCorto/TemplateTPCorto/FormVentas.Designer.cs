@@ -44,6 +44,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbClientes = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblDescuento = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnListarProductos
@@ -59,7 +61,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(585, 443);
+            this.btnCargar.Location = new System.Drawing.Point(586, 458);
             this.btnCargar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(76, 19);
@@ -121,7 +123,7 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(547, 401);
+            this.lblTotal.Location = new System.Drawing.Point(547, 429);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(13, 13);
@@ -131,7 +133,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(452, 401);
+            this.label4.Location = new System.Drawing.Point(451, 429);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
@@ -205,9 +207,29 @@
             this.cmbClientes.Size = new System.Drawing.Size(160, 21);
             this.cmbClientes.TabIndex = 18;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(452, 402);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 34;
+            this.label6.Text = "Descuentos :";
+            // 
+            // lblDescuento
+            // 
+            this.lblDescuento.AutoSize = true;
+            this.lblDescuento.Location = new System.Drawing.Point(547, 402);
+            this.lblDescuento.Name = "lblDescuento";
+            this.lblDescuento.Size = new System.Drawing.Size(13, 13);
+            this.lblDescuento.TabIndex = 35;
+            this.lblDescuento.Text = "0";
+            // 
             // FormVentas
             // 
             this.ClientSize = new System.Drawing.Size(852, 524);
+            this.Controls.Add(this.lblDescuento);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnListarProductos);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.btnQuitar);
@@ -249,5 +271,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbClientes;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblDescuento;
     }
 }

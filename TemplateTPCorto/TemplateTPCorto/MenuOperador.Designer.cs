@@ -47,7 +47,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(256, 16);
+            this.label2.Location = new System.Drawing.Point(22, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 1;
@@ -65,7 +65,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(361, 16);
+            this.label4.Location = new System.Drawing.Point(77, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 3;
@@ -73,7 +73,7 @@
             // 
             // cargarVenta
             // 
-            this.cargarVenta.Location = new System.Drawing.Point(64, 260);
+            this.cargarVenta.Location = new System.Drawing.Point(25, 98);
             this.cargarVenta.Name = "cargarVenta";
             this.cargarVenta.Size = new System.Drawing.Size(148, 23);
             this.cargarVenta.TabIndex = 4;
@@ -83,7 +83,7 @@
             // 
             // MenuOperador
             // 
-            this.ClientSize = new System.Drawing.Size(865, 496);
+            this.ClientSize = new System.Drawing.Size(563, 496);
             this.Controls.Add(this.cargarVenta);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

@@ -20,7 +20,8 @@ namespace TemplateTPCorto
         List<Producto> productosEnCarrito = new List<Producto>();
         double subTotal = 0.0;
         double total = 0.0;
-
+        double descuento = 0.0;
+        double porcentaje_descuento = 0.15; 
         public FormVentas()
         {
             InitializeComponent();
@@ -135,6 +136,8 @@ namespace TemplateTPCorto
             listBox1.Items.Add(itemCarrito);
             subTotal += productoSeleccionado.Precio * cantidadAComprar;
             total += productoSeleccionado.Precio * cantidadAComprar;
+            
+            
             actualizarTotales();
         }
 
@@ -154,8 +157,25 @@ namespace TemplateTPCorto
 
         private void actualizarTotales()
         {
+            aplicarDescuento(porcentaje_descuento);
+            lblDescuento.Text = descuento.ToString();
             lablSubTotal.Text = subTotal.ToString();
             lblTotal.Text = total.ToString();
+        }
+        private void aplicarDescuento(double Porcentaje_descuento)
+        {
+           
+            if (subTotal > 1000000)
+            {
+                descuento = subTotal * Porcentaje_descuento; // Aplica un 15% de descuento
+                total = subTotal - descuento;
+                
+
+            } else if (subTotal < 1000000)
+            {
+                descuento = 0; // No aplica descuento
+                total = subTotal;
+            }
         }
 
         private void FormVentas_Load_1(object sender, EventArgs e)
