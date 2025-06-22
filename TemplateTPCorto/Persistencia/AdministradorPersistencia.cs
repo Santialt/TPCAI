@@ -1,6 +1,8 @@
-﻿using Persistencia.DataBase;
+﻿using Datos;
+using Persistencia.DataBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +19,6 @@ namespace Persistencia
             List<string> lineas = datos.BuscarRegistro(nombreArchivo);
             return lineas;
         }
+
     }
 }
