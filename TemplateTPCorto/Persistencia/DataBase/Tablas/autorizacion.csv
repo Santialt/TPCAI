@@ -1,2 +1,4 @@
 idOperacion;tipoOperacion;estado;legajoSolicitante;fechaSolicitud;legajoAutorizador;fechaAutorizacion
-7;Cambio de Credencial;Autorizada;Autorizada;19/5/2025 15:58:36;;
+7;Cambio de Credencial;Autorizada;Autorizada;19/5/2025 15:58:36;5343;22/6/2025
+8;Cambio de Credencial;Autorizada;1500;22/6/2025 09:31:52;5343;22/6/2025
+9;Cambio de Credencial;Autorizada;1500;22/6/2025 09:33:53;5343;22/6/2025

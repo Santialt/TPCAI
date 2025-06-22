@@ -45,17 +45,13 @@ namespace Negocio
 
             return tabla;
         }
-        public DataView FiltrarPorEstado(DataTable tabla, string estado)
+        public DataTable actualizarTabla()
         {
-            DataView vista = new DataView(tabla);
-
-            if (!string.IsNullOrEmpty(estado) && estado.ToLower() != "todos")
-            {
-                vista.RowFilter = $"estado = '{estado}'";
-            }
-
-            return vista;
-        }
+            List<string> lineas = Leerarchivo("autorizacion.csv");
+            DataTable tablaoriginal = ConvertirCSVaDataTable(lineas);
+            return tablaoriginal;
+            
+        }   
         public OperacionCambioCredencial BuscarOperacionPorId(string id)
         {
             var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "operacion_cambio_credencial.csv");
@@ -98,7 +94,7 @@ namespace Negocio
 
             File.WriteAllLines(rutaCredenciales, lineas);
         }
-        public void ActualizarEstadoAutorizacion(string idCambio, string nuevoEstado)
+        public void ActualizarEstadoAutorizacion(string idCambio, string nuevoEstado , string legajoAutorizador)
         {
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "autorizacion.csv");
 
@@ -113,6 +109,8 @@ namespace Negocio
                 if (campos.Length >= 4 && campos[0].Trim() == idCambio)
                 {
                     campos[2] = nuevoEstado; 
+                    campos[5] = legajoAutorizador; // Actualiza el legajo del autorizador
+                    campos[6] = DateTime.Now.ToString("d/M/yyyy"); // Actualiza la fecha de autorización
                     lineas[i] = string.Join(";", campos);
                     break;
                 }
