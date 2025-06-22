@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection.Emit;
 
 namespace TemplateTPCorto
 {
@@ -30,7 +31,10 @@ namespace TemplateTPCorto
 
         private void OpcionSupervisor_Load(object sender, EventArgs e)
         {
-
+            var strings = usuarioPerfil.Roles1;
+            string texto = string.Join(Environment.NewLine, strings);
+            label1.Text = "Bienvenido/a  " + credencial.NombreUsuario;
+            label2.Text = "Perfil:  " + usuarioPerfil.NombrePerfil1;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -38,6 +42,21 @@ namespace TemplateTPCorto
             MenuSupervisor menuSupervisor = new MenuSupervisor(credencial, usuarioPerfil);
             this.Hide();
             menuSupervisor.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FormLogin formLogin = new FormLogin();
+            this.Hide();
+            formLogin.Show();   
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FormDesbloquearCredenciales formDesbloquearCredenciales = new FormDesbloquearCredenciales(credencial, usuarioPerfil);
+            this.Hide();
+            formDesbloquearCredenciales.Show();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace TemplateTPCorto
         {
             var strings = usuarioPerfil.Roles1;
             string texto = string.Join(Environment.NewLine, strings);
-            label8.Text = "Bienvenido/a " + credencial.NombreUsuario;
+            label8.Text = credencial.NombreUsuario;
             label10.Text = usuarioPerfil.NombrePerfil1;
         }
 
@@ -47,7 +47,7 @@ namespace TemplateTPCorto
         {
             LoginPerfil loginPerfil = new LoginPerfil();
             string legajoabuscar = textBox1.Text;
-            string[] datos = loginPerfil.BuscarPersonaPorLegajo(legajoabuscar);
+            string[] datos = loginPerfil.BuscarPersonaPorLegajo(legajoabuscar , "persona.csv");
             if (datos != null)
             {
                 txtLegajo.Text = datos[0];
@@ -110,9 +110,9 @@ namespace TemplateTPCorto
 
         private void button3_Click(object sender, EventArgs e)
         {
-            FormLogin formLogin = new FormLogin();
+            OpcionSupervisor opcionSupervisor = new OpcionSupervisor(credencial, usuarioPerfil);
             this.Hide();
-            formLogin.ShowDialog(); 
+            opcionSupervisor.Show();
         }
 
         private void label6_Click(object sender, EventArgs e)

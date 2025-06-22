@@ -78,9 +78,9 @@ namespace Negocio
             return null;
              }
 
-        public string[] BuscarPersonaPorLegajo(string legajoBuscado)
+        public string[] BuscarPersonaPorLegajo(string legajoBuscado, string archivo)
         {
-            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
+            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", archivo);
 
             if (!File.Exists(rutaArchivo))
                 return null;
@@ -97,6 +97,28 @@ namespace Negocio
                     if (campos.Length >= 5 && campos[0].Trim() == legajoBuscado.Trim())
                     {
                         return campos;
+                    }
+                }
+            }
+
+            return null;
+        }
+        public string BuscarPerfilPorLegajo(string legajoBuscado)
+        {
+            string rutaPerfil = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "usuario_perfil.csv");
+
+            if (!File.Exists(rutaPerfil))
+                return null;
+
+            using (StreamReader sr = new StreamReader(rutaPerfil))
+            {
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
+                {
+                    string[] campos = linea.Split(';');
+                    if (campos.Length >= 2 && campos[0] == legajoBuscado)
+                    {
+                        return campos[1]; // Devuelve el idPerfil
                     }
                 }
             }

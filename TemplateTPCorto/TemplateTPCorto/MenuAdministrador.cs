@@ -77,9 +77,9 @@ namespace TemplateTPCorto
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FormLogin formLogin = new FormLogin();  
+            FormLogin formLogin = new FormLogin();
             this.Hide();
-            formLogin.ShowDialog(); 
+            formLogin.Show();
         }
     }
 }
