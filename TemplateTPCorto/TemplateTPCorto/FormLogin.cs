@@ -75,9 +75,9 @@ namespace TemplateTPCorto
                 }
                 else if (usuarioPerfil.IdPerfil1 == "2")
                 {
-                    MenuSupervisor menuSupervisor = new MenuSupervisor(credencial, usuarioPerfil);
+                    OpcionSupervisor opcionSupervisor = new OpcionSupervisor(credencial, usuarioPerfil);
                     this.Hide();
-                    menuSupervisor.Show();
+                    opcionSupervisor.Show();
                 }
                 else if (usuarioPerfil.IdPerfil1 == "3")
                 {

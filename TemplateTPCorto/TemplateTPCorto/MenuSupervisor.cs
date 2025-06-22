@@ -47,37 +47,35 @@ namespace TemplateTPCorto
         {
             LoginPerfil loginPerfil = new LoginPerfil();
             string legajoabuscar = textBox1.Text;
-            Credencial cred = loginPerfil.BuscarCredencialPorLegajo("credenciales.csv", legajoabuscar);
-            if (cred != null)
+            string[] datos = loginPerfil.BuscarPersonaPorLegajo(legajoabuscar);
+            if (datos != null)
             {
-                textBox6.ReadOnly = true;
-                textBox2.Text = cred.NombreUsuario;
-                textBox3.Text = cred.Contrasena;
-                textBox4.Text = cred.FechaAlta.ToString("d/M/yyyy");
-                textBox5.Text = cred.FechaUltimoLogin.ToString("d/M/yyyy");
-                textBox6.Text = cred.Legajo;
-
+                txtLegajo.Text = datos[0];
+                txtNombre.Text = datos[1];
+                txtApellido.Text = datos[2];
+                txtDni.Text = datos[3];
+                txtFechaingreso.Text = datos[4];
             }
             else
             {
-                MessageBox.Show("Legajo no encontrado.");
+                MessageBox.Show("No se encontró ninguna persona con ese legajo.");
             }
-           
+
 
         }
 
-        
+
 
         private void button2_Click(object sender, EventArgs e)
         {
             OperacionSupervisor supervisor = new OperacionSupervisor();
-            string nombreusuario = textBox2.Text;
-            string contrasena = textBox3.Text;
-            string fechaalta = textBox4.Text;
-            string fechaultimologin = textBox5.Text;
-            string legajo = textBox6.Text;
-            string idcambio = supervisor.ObtenerProximoIdCambio("operacion_cambio_credencial.csv");
-            string tipo_operacion = "Cambio de Credencial";
+            string Legajo = txtLegajo.Text;
+            string Nombre = txtNombre.Text;
+            string Apellido = txtApellido.Text;
+            string Dni = txtDni.Text;
+            string fecha_ingreso = txtFechaingreso.Text;
+            string idcambio = supervisor.ObtenerProximoIdCambio("operacion_cambio_persona.csv");
+            string tipo_operacion = "Cambio de Persona";
             string estado = "Pendiente";    
             string legajo_solicitante = credencial.Legajo;
             string autorizador = "";
@@ -85,8 +83,8 @@ namespace TemplateTPCorto
 
             string solicitud_autorizacion = idcambio + ";" + tipo_operacion + ";" + estado + ";" + legajo_solicitante + ";" + DateTime.Now + ";" + autorizador + ";" + fecha_autorizacion ;
             supervisor.AgregarSolicitud(solicitud_autorizacion, "autorizacion.csv");
-            string credencialcambio= idcambio + ";" + legajo + ";" + nombreusuario + ";" + contrasena + ";" + fechaalta + ";" + fechaultimologin;
-            supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_credencial.csv");
+            string credencialcambio= idcambio + ";" + Legajo + ";" + Nombre + ";" + Apellido + ";" + Dni + ";" + fecha_ingreso;
+            supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_persona.csv");
             MessageBox.Show("Solicitud de cambio de credencial enviada correctamente.");
         }
 
@@ -115,6 +113,11 @@ namespace TemplateTPCorto
             FormLogin formLogin = new FormLogin();
             this.Hide();
             formLogin.ShowDialog(); 
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
     

@@ -54,7 +54,7 @@ namespace Negocio
         }   
         public OperacionCambioCredencial BuscarOperacionPorId(string id)
         {
-            var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "operacion_cambio_credencial.csv");
+            var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "operacion_cambio_persona.csv");
             var lineas = File.ReadAllLines(ruta);
 
             foreach (var linea in lineas)
@@ -66,9 +66,10 @@ namespace Negocio
                     {
                         IdCambio = campos[0],
                         Legajo = campos[1],
-                        Usuario = campos[2],
-                        NuevaClave = campos[3],
-                        FechaSolicitud = campos[4]
+                        Nombre = campos[2],
+                        Apellido = campos[3],
+                        Dni = campos[4],
+                        FechaIngreso = campos[5],
                     };
                 }
             }
@@ -77,7 +78,7 @@ namespace Negocio
         }
         public void AplicarCambioEnCredencial(OperacionCambioCredencial cambio)
         {
-            string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "credenciales.csv");
+            string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
             var lineas = File.ReadAllLines(rutaCredenciales).ToList();
 
             for (int i = 0; i < lineas.Count; i++)
@@ -86,7 +87,7 @@ namespace Negocio
                 if (campos.Length >= 4 && campos[0] == cambio.Legajo)
                 {
                     // Reemplaza la línea con la nueva clave y último login vacío
-                    string nuevaLinea = $"{campos[0]};{cambio.Usuario};{cambio.NuevaClave};";
+                    string nuevaLinea = $"{campos[0]};{cambio.Nombre};{cambio.Apellido};{cambio.Dni};{cambio.FechaIngreso};" ;
                     lineas[i] = nuevaLinea;
                     break;
                 }

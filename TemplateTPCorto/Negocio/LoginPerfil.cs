@@ -78,46 +78,27 @@ namespace Negocio
             return null;
              }
 
-        public Credencial BuscarCredencialPorLegajo(string nombreArchivo, string legajoBuscado)
+        public string[] BuscarPersonaPorLegajo(string legajoBuscado)
         {
-            string rutaArchivo = Path.Combine(archivoCsv, nombreArchivo);
+            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
 
             if (!File.Exists(rutaArchivo))
                 return null;
 
-            try
+            using (StreamReader sr = new StreamReader(rutaArchivo))
             {
-                using (var fs = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader sr = new StreamReader(fs))
+                sr.ReadLine(); // salteo cabecera
+
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
                 {
-                    string linea;
-                    while ((linea = sr.ReadLine()) != null)
+                    string[] campos = linea.Split(';');
+
+                    if (campos.Length >= 5 && campos[0].Trim() == legajoBuscado.Trim())
                     {
-                        string[] campos = linea.Split(';');
-
-                        if (campos.Length >= 4)
-                        {
-                            string legajoLeido = campos[0].Trim();
-
-                            if (string.Equals(legajoLeido, legajoBuscado, StringComparison.OrdinalIgnoreCase))
-                            {
-                                return new Credencial(string.Join(";", campos))
-                                {
-                                    Legajo = campos[0].Trim(),
-                                    NombreUsuario = campos[1].Trim(),
-                                    Contrasena = campos[2].Trim(),
-                                    FechaAlta = DateTime.ParseExact(campos[3].Trim(), "d/M/yyyy", null),
-                                    FechaUltimoLogin = DateTime.ParseExact(campos[4].Trim(), "d/M/yyyy", null)
-
-                                };
-                            }
-                        }
+                        return campos;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al leer el archivo: " + ex.Message);
             }
 
             return null;
