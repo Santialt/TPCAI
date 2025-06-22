@@ -1,7 +1,4 @@
 idOperacion;tipoOperacion;estado;legajoSolicitante;fechaSolicitud;legajoAutorizador;fechaAutorizacion;
 
-1;Cambio de Persona;Autorizada;1500;22/6/2025 13:26:06;5343;22/6/2025
-
-1;Desbloquear Credencial;Autorizada;1500;22/6/2025 15:59:57;5343;22/6/2025
-2;Desbloquear Credencial;Pendiente;1500;22/6/2025 16:00:08;;
-3;Desbloquear Credencial;Pendiente;1500;22/6/2025 16:00:19;;
+1;Cambio de Persona;Autorizada;1500;22/6/2025 19:06:36;5343;22/6/2025
+1;Desbloquear Credencial;Autorizada;1500;22/6/2025 19:07:10;5343;22/6/2025

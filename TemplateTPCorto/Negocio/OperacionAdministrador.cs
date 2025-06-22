@@ -103,22 +103,48 @@ namespace Negocio
         }
         public void AplicarCambioEnPersona(OperacionCambioPersona cambio)
         {
-            string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
-            var lineas = File.ReadAllLines(rutaCredenciales).ToList();
+            string rutaPersona = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
+            string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "credenciales.csv");
 
-            for (int i = 0; i < lineas.Count; i++)
+            var lineasPersona = File.ReadAllLines(rutaPersona).ToList();
+            var lineasCredenciales = File.ReadAllLines(rutaCredenciales).ToList();
+
+            string usuarioUnificado = cambio.Nombre + "." + cambio.Apellido;
+
+            // Actualizar persona.csv
+            for (int i = 0; i < lineasPersona.Count; i++)
             {
-                var campos = lineas[i].Split(';');
-                if (campos.Length >= 4 && campos[0] == cambio.Legajo)
+                var campos = lineasPersona[i].Split(';');
+                if (campos.Length >= 5 && campos[0] == cambio.Legajo)
                 {
-                    // Reemplaza la línea con la nueva clave y último login vacío
-                    string nuevaLinea = $"{campos[0]};{cambio.Nombre};{cambio.Apellido};{cambio.Dni};{cambio.FechaIngreso};" ;
-                    lineas[i] = nuevaLinea;
+                    lineasPersona[i] = $"{campos[0]};{cambio.Nombre};{cambio.Apellido};{cambio.Dni};{cambio.FechaIngreso}";
                     break;
                 }
             }
 
-            File.WriteAllLines(rutaCredenciales, lineas);
+            // Actualizar credenciales.csv (solo el nombre de usuario)
+            for (int i = 0; i < lineasCredenciales.Count; i++)
+            {
+                var campos = lineasCredenciales[i].Split(';');
+                if (campos.Length >= 5 && campos[0] == cambio.Legajo)
+                {
+                    // Conservar los otros valores
+                    string contraseña = campos[2];
+                    string fechaAlta = campos[3];
+                    string ultimoLogin = campos[4];
+
+                    lineasCredenciales[i] = $"{campos[0]};{usuarioUnificado};{contraseña};{fechaAlta};{ultimoLogin}";
+                    break;
+                }
+            }
+
+            // Guardar los cambios
+            File.WriteAllLines(rutaPersona, lineasPersona);
+            File.WriteAllLines(rutaCredenciales, lineasCredenciales);
+
+
+
+
         }
         public void AplicarCambioenCrendencial(OperacionCambioCredencial cambio)
         {
@@ -131,7 +157,7 @@ namespace Negocio
                 if (campos.Length >= 4 && campos[0] == cambio.Legajo)
                 {
                     // Reemplaza la línea con la nueva clave y último login vacío
-                    string nuevaLinea = $"{campos[0]};{cambio.Legajo};{cambio.NombreUsuario};{cambio.Contraseña};{cambio.FechaAlta};{cambio.FechaUltimoLogin};";
+                    string nuevaLinea = $"{campos[0]};{cambio.NombreUsuario};{cambio.Contraseña};{cambio.FechaAlta};{cambio.FechaUltimoLogin}";
                     lineas[i] = nuevaLinea;
                     break;
                 }

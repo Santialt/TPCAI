@@ -72,7 +72,7 @@ namespace TemplateTPCorto
                         MessageBox.Show("No se encontró la operación.");
                     }
                 }
-                if (estado == "Pendiente" && tipoOperacion == "Desbloquar Credencial")
+                if (estado == "Pendiente" && tipoOperacion == "Desbloquear Credencial")
                 {
                     string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
                     OperacionCambioCredencial cambio = operacionAdministrador.BuscarOperacionCredencialPorId(idCambio);

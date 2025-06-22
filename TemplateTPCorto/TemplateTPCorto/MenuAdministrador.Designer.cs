@@ -91,7 +91,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(706, 230);
             this.dataGridView1.TabIndex = 8;
-        
             // 
             // button2
             // 

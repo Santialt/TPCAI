@@ -31,6 +31,7 @@ namespace TemplateTPCorto
             string texto = string.Join(Environment.NewLine, strings);
             label8.Text = credencial.NombreUsuario;
             label10.Text = usuarioPerfil.NombrePerfil1;
+            txtLegajo.Enabled = false;  
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
