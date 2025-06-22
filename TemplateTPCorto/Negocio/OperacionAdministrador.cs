@@ -52,7 +52,8 @@ namespace Negocio
             return tablaoriginal;
             
         }   
-        public OperacionCambioCredencial BuscarOperacionPorId(string id)
+        
+        public OperacionCambioPersona BuscarOperacionPorId(string id)
         {
             var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "operacion_cambio_persona.csv");
             var lineas = File.ReadAllLines(ruta);
@@ -62,7 +63,7 @@ namespace Negocio
                 var campos = linea.Split(';');
                 if (campos.Length >= 5 && campos[0].Trim() == id)
                 {
-                    return new OperacionCambioCredencial
+                    return new OperacionCambioPersona
                     {
                         IdCambio = campos[0],
                         Legajo = campos[1],
@@ -76,7 +77,31 @@ namespace Negocio
 
             return null;
         }
-        public void AplicarCambioEnCredencial(OperacionCambioCredencial cambio)
+        public OperacionCambioCredencial BuscarOperacionCredencialPorId(string id)
+        {
+            var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "operacion_cambio_credencial.csv");
+            var lineas = File.ReadAllLines(ruta);
+
+            foreach (var linea in lineas)
+            {
+                var campos = linea.Split(';');
+                if (campos.Length >= 5 && campos[0].Trim() == id)
+                {
+                    return new OperacionCambioCredencial
+                    {
+                        IdCambio = campos[0],
+                        Legajo = campos[1],
+                        NombreUsuario = campos[2],
+                        Contraseña = campos[3],
+                        FechaAlta = campos[4],
+                        FechaUltimoLogin = campos[5],
+                    };
+                }
+            }
+
+            return null;
+        }
+        public void AplicarCambioEnPersona(OperacionCambioPersona cambio)
         {
             string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "persona.csv");
             var lineas = File.ReadAllLines(rutaCredenciales).ToList();
@@ -95,7 +120,26 @@ namespace Negocio
 
             File.WriteAllLines(rutaCredenciales, lineas);
         }
-        public void ActualizarEstadoAutorizacion(string idCambio, string nuevoEstado , string legajoAutorizador)
+        public void AplicarCambioenCrendencial(OperacionCambioCredencial cambio)
+        {
+            string rutaCredenciales = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "credenciales.csv");
+            var lineas = File.ReadAllLines(rutaCredenciales).ToList();
+
+            for (int i = 0; i < lineas.Count; i++)
+            {
+                var campos = lineas[i].Split(';');
+                if (campos.Length >= 4 && campos[0] == cambio.Legajo)
+                {
+                    // Reemplaza la línea con la nueva clave y último login vacío
+                    string nuevaLinea = $"{campos[0]};{cambio.Legajo};{cambio.NombreUsuario};{cambio.Contraseña};{cambio.FechaAlta};{cambio.FechaUltimoLogin};";
+                    lineas[i] = nuevaLinea;
+                    break;
+                }
+            }
+
+            File.WriteAllLines(rutaCredenciales, lineas);
+        }
+        public void ActualizarEstadoAutorizacion(string idCambio, string nuevoEstado , string legajoAutorizador ,string tipoCambio)
         {
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas\", "autorizacion.csv");
 
@@ -107,7 +151,7 @@ namespace Negocio
             {
                 string[] campos = lineas[i].Split(';');
 
-                if (campos.Length >= 4 && campos[0].Trim() == idCambio)
+                if (campos.Length >= 4 && campos[0].Trim() == idCambio && campos[1] == tipoCambio)
                 {
                     campos[2] = nuevoEstado; 
                     campos[5] = legajoAutorizador; // Actualiza el legajo del autorizador

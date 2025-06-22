@@ -47,28 +47,49 @@ namespace TemplateTPCorto
             if (dataGridView1.CurrentRow != null)
             {
                 string estado = dataGridView1.CurrentRow.Cells["Estado"].Value.ToString();
+                string tipoOperacion = dataGridView1.CurrentRow.Cells["tipoOperacion"].Value.ToString();
 
                 if (estado == "Autorizada")
                 {
                     MessageBox.Show("Esta operación ya fue autorizada y no puede volver a procesarse.");
                     return;
                 }
-
-                string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
-                OperacionCambioCredencial cambio = operacionAdministrador.BuscarOperacionPorId(idCambio);
-
-                if (cambio != null)
+                if (estado == "Pendiente" && tipoOperacion == "Cambio de Persona" )
                 {
-                    operacionAdministrador.AplicarCambioEnCredencial(cambio);
-                    MessageBox.Show("Cambio aplicado correctamente.");
-                    dataGridView1.CurrentRow.Cells["Estado"].Value = "Autorizada";
-                    operacionAdministrador.ActualizarEstadoAutorizacion(idCambio, "Autorizada",credencial.Legajo);
-                    dataGridView1.DataSource = operacionAdministrador.actualizarTabla();
+                    string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
+                    OperacionCambioPersona cambio = operacionAdministrador.BuscarOperacionPorId(idCambio);
+
+                    if (cambio != null)
+                    {
+                        operacionAdministrador.AplicarCambioEnPersona(cambio);
+                        MessageBox.Show("Cambio aplicado correctamente.");
+                        dataGridView1.CurrentRow.Cells["Estado"].Value = "Autorizada";
+                        operacionAdministrador.ActualizarEstadoAutorizacion(idCambio, "Autorizada", credencial.Legajo,tipoOperacion);
+                        dataGridView1.DataSource = operacionAdministrador.actualizarTabla();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró la operación.");
+                    }
                 }
-                else
+                if (estado == "Pendiente" && tipoOperacion == "Desbloquar Credencial")
                 {
-                    MessageBox.Show("No se encontró la operación.");
+                    string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
+                    OperacionCambioCredencial cambio = operacionAdministrador.BuscarOperacionCredencialPorId(idCambio);
+                    if (cambio != null)
+                    {
+                        operacionAdministrador.AplicarCambioenCrendencial(cambio);
+                        MessageBox.Show("Cambio aplicado correctamente.");
+                        dataGridView1.CurrentRow.Cells["Estado"].Value = "Autorizada";
+                        operacionAdministrador.ActualizarEstadoAutorizacion(idCambio, "Autorizada", credencial.Legajo,tipoOperacion);
+                        dataGridView1.DataSource = operacionAdministrador.actualizarTabla();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró la operación.");
+                    }
                 }
+
             }
 
 

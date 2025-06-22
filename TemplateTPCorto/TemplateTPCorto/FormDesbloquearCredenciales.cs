@@ -86,7 +86,7 @@ namespace TemplateTPCorto
             string FechaAlta = txtFechaAlta.Text;
             string fechaUltimoLogin = "";
             string idcambio = supervisor.ObtenerProximoIdCambio("operacion_cambio_credencial.csv");
-            string tipo_operacion = "Desbloquar Credencial";
+            string tipo_operacion = "Desbloquear Credencial";
             string estado = "Pendiente";
             string legajo_solicitante = credencial.Legajo;
             string autorizador = "";
