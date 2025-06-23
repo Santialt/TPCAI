@@ -27,6 +27,7 @@ namespace TemplateTPCorto
 
         private void MenuSupervisor_Load(object sender, EventArgs e)
         {
+            
             var strings = usuarioPerfil.Roles1;
             string texto = string.Join(Environment.NewLine, strings);
             label8.Text = credencial.NombreUsuario;
@@ -34,18 +35,11 @@ namespace TemplateTPCorto
             txtLegajo.Enabled = false;  
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Busca la persona por legajo y completa los textbox con los datos de la persona 
             LoginPerfil loginPerfil = new LoginPerfil();
             string legajoabuscar = textBox1.Text;
             string[] datos = loginPerfil.BuscarPersonaPorLegajo(legajoabuscar , "persona.csv");
@@ -69,6 +63,8 @@ namespace TemplateTPCorto
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // toma los datos en los textbox y crea una solicitud de cambio de credencial y la guarda en el archivo operacion_cambio_persona.csv
+            // tambien crea una solicitud de autorizacion y guarda en el archivo autorizacion.csv
             OperacionSupervisor supervisor = new OperacionSupervisor();
             string Legajo = txtLegajo.Text;
             string Nombre = txtNombre.Text;
@@ -87,39 +83,24 @@ namespace TemplateTPCorto
             string credencialcambio= idcambio + ";" + Legajo + ";" + Nombre + ";" + Apellido + ";" + Dni + ";" + fecha_ingreso;
             supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_persona.csv");
             MessageBox.Show("Solicitud de cambio de credencial enviada correctamente.");
+
+            txtApellido.Clear();
+            txtDni.Clear();
+            txtFechaingreso.Clear();
+            txtLegajo.Clear();
+            txtNombre.Clear();
+            textBox1.Clear();
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Cierra el formulario actual y vuelve a la pantalla de login
             OpcionSupervisor opcionSupervisor = new OpcionSupervisor(credencial, usuarioPerfil);
             this.Hide();
             opcionSupervisor.Show();
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
     }
     
 }

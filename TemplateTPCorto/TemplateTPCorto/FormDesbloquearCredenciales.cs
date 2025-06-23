@@ -97,6 +97,15 @@ namespace TemplateTPCorto
             string credencialcambio = idcambio + ";" + Legajo + ";" + NombreUsuario + ";" + Contraseña + ";" + FechaAlta + ";" + fechaUltimoLogin;
             supervisor.AgregarSolicitud(credencialcambio, "operacion_cambio_credencial.csv");
             MessageBox.Show("Solicitud de cambio de credencial enviada correctamente.");
+
+            textBox1.Clear();
+            txtLegajo.Clear();
+            txtUsuario.Clear();
+            txtContraseña.Clear();
+            txtFechaAlta.Clear();
+            txtUltimoLogin.Clear();
+            txtPerfil.Clear();
+
         }
     }
 }

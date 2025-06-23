@@ -88,14 +88,11 @@ namespace TemplateTPCorto
             }
         }
 
-        private void FormLogin_Load(object sender, EventArgs e)
+      
+
+        private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
-
+            Application.Exit();
         }
     }
 }

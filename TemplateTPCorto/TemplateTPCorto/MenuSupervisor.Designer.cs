@@ -59,7 +59,7 @@
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Ingresar legajo";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+           
             // 
             // textBox1
             // 
@@ -67,7 +67,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+         
             // 
             // button1
             // 
@@ -151,7 +151,7 @@
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = "Fecha de Ingreso";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+          
             // 
             // txtFechaingreso
             // 
@@ -179,7 +179,7 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Persona a modificar";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+          
             // 
             // button2
             // 
@@ -199,7 +199,7 @@
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 14;
             this.label7.Text = "Usuario";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+          
             // 
             // label8
             // 
@@ -218,7 +218,7 @@
             this.label9.Size = new System.Drawing.Size(30, 13);
             this.label9.TabIndex = 16;
             this.label9.Text = "Perfil";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
+            
             // 
             // label10
             // 

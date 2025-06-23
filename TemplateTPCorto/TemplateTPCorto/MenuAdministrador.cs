@@ -32,8 +32,8 @@ namespace TemplateTPCorto
 
         private void MenuAdministrador_Load(object sender, EventArgs e)
         {
-           
-           
+            //Preparación de la tabla
+
             var strings = usuarioPerfil.Roles1;
             string texto = string.Join(Environment.NewLine, strings);
             label2.Text = "Bienvenido/a " + credencial.NombreUsuario;
@@ -42,7 +42,7 @@ namespace TemplateTPCorto
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             int anchoTotal = 0;
 
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            foreach (DataGridViewColumn col in dataGridView1.Columns )   
             {
                 anchoTotal += col.Width;
             }
@@ -53,7 +53,8 @@ namespace TemplateTPCorto
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            //De acuerdo a la fila seleccionada, se aplica el cambio correspondiente segun el estado y tipo de operacion (cambio de Persona o Desbloquear Credencial
+            //si el estado es Autorizada, no se puede volver a procesar
             if (dataGridView1.CurrentRow != null)
             {
                 string estado = dataGridView1.CurrentRow.Cells["Estado"].Value.ToString();
@@ -115,6 +116,7 @@ namespace TemplateTPCorto
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //se muestra el detalle de la operación seleccionada por el usuario en caso de que quiera ver la fila seleccionada
             lblDetalles.Show();
             string estado = dataGridView1.CurrentRow.Cells["Estado"].Value.ToString();
             string tipoOperacion = dataGridView1.CurrentRow.Cells["tipoOperacion"].Value.ToString();

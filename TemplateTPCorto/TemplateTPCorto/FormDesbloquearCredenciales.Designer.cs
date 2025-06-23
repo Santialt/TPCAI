@@ -226,7 +226,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormDesbloquearCredenciales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "DesbloquearContraseña";
             this.Load += new System.EventHandler(this.FormDesbloquearCredenciales_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
