@@ -139,7 +139,7 @@ namespace Persistencia.DataBase
             }
             catch
             {
-                // Log opcional o manejo de error, si querés
+                // Log opcional o manejo de error
             }
 
             return null;
@@ -158,18 +158,18 @@ namespace Persistencia.DataBase
                     return;
                 }
 
-                // Asegurarse de que no haya saltos de línea al principio o fin
+                
                 linea = linea.Trim();
 
-                // Si el archivo ya existe, asegurate que no tenga líneas vacías al inicio
+               
                 if (File.Exists(rutaCompleta))
                 {
                     var lineas = File.ReadAllLines(rutaCompleta).ToList();
 
-                    // Eliminar líneas vacías (opcional si querés limpiar el archivo)
+                    // Eliminar líneas vacías 
                     lineas = lineas.Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
 
-                    // Escribir las líneas anteriores sin vacías + nueva línea
+                    
                     lineas.Add(linea);
                     File.WriteAllLines(rutaCompleta, lineas);
                 }
