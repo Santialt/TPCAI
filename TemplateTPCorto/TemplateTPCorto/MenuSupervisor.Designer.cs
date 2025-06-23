@@ -254,6 +254,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "MenuSupervisor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuSupervisor";
             this.Load += new System.EventHandler(this.MenuSupervisor_Load);
             this.groupBox1.ResumeLayout(false);

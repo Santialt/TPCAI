@@ -39,6 +39,16 @@ namespace TemplateTPCorto
             label2.Text = "Bienvenido/a " + credencial.NombreUsuario;
             label4.Text = usuarioPerfil.NombrePerfil1;
             dataGridView1.DataSource = operacionAdministrador.actualizarTabla();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            int anchoTotal = 0;
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                anchoTotal += col.Width;
+            }
+
+            dataGridView1.Width = anchoTotal + dataGridView1.RowHeadersWidth + 2;
+            lblDetalles.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -101,6 +111,35 @@ namespace TemplateTPCorto
             FormLogin formLogin = new FormLogin();
             this.Hide();
             formLogin.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            lblDetalles.Show();
+            string estado = dataGridView1.CurrentRow.Cells["Estado"].Value.ToString();
+            string tipoOperacion = dataGridView1.CurrentRow.Cells["tipoOperacion"].Value.ToString();
+            if (tipoOperacion == "Cambio de Persona")
+            {
+                string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
+                OperacionCambioPersona cambio = operacionAdministrador.BuscarOperacionPorId(idCambio);
+
+                lblDetalles.Text = "Nombre: " + cambio.Nombre + Environment.NewLine +
+                                   "Apellido: " + cambio.Apellido + Environment.NewLine +
+                                   "DNI: " + cambio.Dni + Environment.NewLine +
+                                   "Legajo: " + cambio.Legajo + Environment.NewLine +
+                                   "Fecha de ingreso: " + cambio.FechaIngreso;
+            }
+            else if (tipoOperacion == "Desbloquear Credencial")
+            {
+                string idCambio = dataGridView1.CurrentRow.Cells["idOperacion"].Value.ToString();
+                OperacionCambioCredencial cambio = operacionAdministrador.BuscarOperacionCredencialPorId(idCambio);
+                lblDetalles.Text = "Legajo: " + cambio.Legajo + Environment.NewLine +
+                                   "Nombre de usuario: " + cambio.NombreUsuario + Environment.NewLine +
+                                   "Contraseña: " + cambio.Contraseña + Environment.NewLine +
+                                   "Fecha de alta: " + cambio.FechaAlta + Environment.NewLine +
+                                   "Fecha del último login: " + cambio.FechaUltimoLogin;
+               
+            }
         }
     }
 }

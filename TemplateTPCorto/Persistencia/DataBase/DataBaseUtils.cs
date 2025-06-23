@@ -147,26 +147,42 @@ namespace Persistencia.DataBase
 
         public void RegistrarLineaEnArchivo(string nombreArchivo, string linea) // se creo un nuevo método para registrar una línea en el archivo 
         {
-            // Ruta base desde la carpeta del proyecto 
-            string rutaRelativa = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas" , nombreArchivo);
+            string rutaRelativa = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Persistencia\DataBase\Tablas", nombreArchivo);
             string rutaCompleta = Path.GetFullPath(rutaRelativa);
 
             try
             {
-                // se verifica que exista la carpeta destino
-                string carpeta = Path.GetDirectoryName(rutaCompleta);
-                if (!Directory.Exists(carpeta))
+                if (string.IsNullOrWhiteSpace(linea))
                 {
-                    Directory.CreateDirectory(carpeta);
+                    Console.WriteLine("La línea está vacía. No se escribe.");
+                    return;
                 }
 
-                // se abre el archivo en modo append, si no existe lo crea
-                using (StreamWriter sw = new StreamWriter(rutaCompleta, append: true))
+                // Asegurarse de que no haya saltos de línea al principio o fin
+                linea = linea.Trim();
+
+                // Si el archivo ya existe, asegurate que no tenga líneas vacías al inicio
+                if (File.Exists(rutaCompleta))
                 {
-                    sw.WriteLine(linea);
+                    var lineas = File.ReadAllLines(rutaCompleta).ToList();
+
+                    // Eliminar líneas vacías (opcional si querés limpiar el archivo)
+                    lineas = lineas.Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+
+                    // Escribir las líneas anteriores sin vacías + nueva línea
+                    lineas.Add(linea);
+                    File.WriteAllLines(rutaCompleta, lineas);
+                }
+                else
+                {
+                    // Si no existe, lo crea con la línea limpia
+                    using (StreamWriter sw = new StreamWriter(rutaCompleta, append: false))
+                    {
+                        sw.WriteLine(linea);
+                    }
                 }
 
-                Console.WriteLine("Línea registrada correctamente en el archivo.");
+                Console.WriteLine("Línea registrada correctamente.");
             }
             catch (Exception ex)
             {

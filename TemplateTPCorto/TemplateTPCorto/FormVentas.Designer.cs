@@ -247,6 +247,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbClientes);
             this.Name = "FormVentas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormVentas_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
